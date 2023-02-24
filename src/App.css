@@ -1,0 +1,322 @@
+/* Root Element has the default theme with light colors*/
+:root {
+  --html_background: #edf6ff;
+  --body_background: linear-gradient(500deg, #6daffe, #a5cefe);
+  --body_color: #424242;
+  --text_shadow: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.2));
+  --font_animated: "Tilt Warp", cursive;
+  --light_color: #ffffff;
+}
+
+/* When Dark Theme is enabled, overwrite root reusable variables */
+[data-theme="dark"] {
+  --html_background: #212223;
+  --body_background: linear-gradient(45deg, #232526, #414345);
+  --body_color: var(--light_color);
+}
+
+/*#region Structure_Theme_Colors*/
+/*Base colors of the selected theme*/
+html {
+  background: var(--html_background);
+}
+
+.App {
+  background: var(--body_background);
+  color: var(--body_color);
+}
+/*#endregion Structure_Theme_Colors*/
+
+* {
+  transition: all 0.1s ease-in-out; /*Transaction between themes*/
+  /*Global Font-Family*/
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+/*#region Navbar_Component*/
+.navbar {
+  background: var(
+    --html_background
+  ); /*set NavBar color accordingly to the theme*/
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; /*Small shadow to differentiate Navbar from body*/
+}
+
+.NavTitle {
+  font-family: var(--font_animated); /*Change Font-family*/
+  color: var(--body_color); /*set text color accordingly to the theme*/
+  font-size: 25px;
+}
+
+/*#region DarkMode_Button_Styling*/
+.dark_mode {
+  margin-top: -20px; /*set button location*/
+  margin-left: 10px;
+}
+
+.dark_mode_label {
+  width: 65px;
+  height: 30px;
+  position: relative;
+  display: block;
+  background: #ebebeb; /*button background color*/
+  border-radius: 200px;
+  /*set button background shadow gradient*/
+  box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4),
+    inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  /*When changing theme, the background also gets darker, this is the trasition time of that background change*/
+  transition: 0.3s;
+}
+/*below we set the changing theme styles of the button,icons and their movement*/
+.dark_mode_label:after {
+  content: "";
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  background: linear-gradient(180deg, #ffcc89, #d8860b);
+  border-radius: 180px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: 0.3s; /*transition time between the "sun" and "moon" Icons*/
+}
+.dark_mode_input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.dark_mode_input:checked + .dark_mode_label {
+  background: #242424; /*Background of the button when dark theme is enabled*/
+}
+/*set style of the circle that tells which theme is enabled*/
+.dark_mode_input:checked + .dark_mode_label:after {
+  left: 62px;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    180deg,
+    #777,
+    #3a3a3a
+  ); /*When dark theme enabled, circle gets darker*/
+}
+.dark_mode_label:active:after {
+  width: 30px;
+}
+
+/*Set icons position to the button*/
+.dark_mode_label svg {
+  position: absolute;
+  width: 20px;
+  top: 5px;
+  z-index: 100;
+}
+
+.dark_mode_label svg.sun {
+  left: 5px;
+  fill: #fff; /*Color of Icon when checked*/
+  transition: 0.3s;
+}
+.dark_mode_label svg.moon {
+  left: 40px;
+  fill: #7e7e7e; /*Color of Icon when checked*/
+  transition: 0.3s;
+}
+/*set "Sun" Icon color to gray when "moon" is checked (dark theme ON)*/
+.dark_mode_input:checked + .dark_mode_label svg.sun {
+  fill: #7e7e7e;
+}
+/*set "Moon" Icon color to white when "sun" is checked (Light theme ON)*/
+.dark_mode_input:checked + .dark_mode_label svg.moon {
+  fill: #fff;
+}
+/*#endregion DarkMode_Button_Styling*/
+
+/*#endregion Navbar_Component*/
+
+/*#region HomePage_Banner*/
+.banner {
+  margin-top: 0;
+  padding: 240px 0 200px 0; /*Increase spacing between elements*/
+}
+
+/* H1 tag is the title text in the banner component*/
+.banner h1 {
+  font-size: 65px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  margin-bottom: 20px; /*Margin between bottom element and h1 element*/
+  display: block;
+  color: var(--light_color); /*Text color (White)*/
+  /*set text shadow and font family reusing theme variables*/
+  filter: var(--text_shadow);
+  font-family: var(--font_animated);
+}
+
+/* P tag is the sub-title text in the banner component*/
+.banner p {
+  color: var(--light_color); /*set text color (White)*/
+  filter: var(--text_shadow); /*set text shadow*/
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+  width: 96%;
+}
+.banner button {
+  font-weight: 400;
+  font-size: 22px;
+  margin-top: 60px;
+  letter-spacing: 0.8px; /*Space between letter*/
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: #febc6d; /*set text color (Gold)*/
+  filter: var(--text_shadow); /*set text shadow*/
+  font-family: var(--font_animated); /*set font family*/
+}
+
+.banner a {
+  text-decoration: none; /*Remove underline due to href*/
+}
+
+.banner button svg {
+  font-size: 25px;
+  filter: var(--text_shadow); /*set shadow in SVG Icon*/
+  margin-left: 10px;
+  transition: 0.3s ease-in-out;
+  line-height: 1;
+  color: #febc6d;
+}
+.banner button:hover svg {
+  margin-left: 25px; /*When the mouse is hover the button, activate transition above*/
+}
+
+/*#endregion HomePage_Banner*/
+
+/*#region Todo_Page*/
+.todo-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 520px;
+  min-height: 680px;
+  text-align: center;
+  margin: 128px auto;
+  border-radius: 10px;
+  padding-bottom: 32px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: var(--html_background);
+}
+
+.todo-app h1 {
+  margin: 32px 0;
+  font-size: 30px;
+  font-family: var(--font_animated); /*set different animated font*/
+}
+
+/*#region Todo_Form*/
+.todo-form {
+  margin-bottom: 32px;
+}
+
+.todo-input {
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  width: 320px;
+  border: 2px solid #febc6d; /*set border color (LightBlue)*/
+  color: var(--body_color); /*set text color according to theme*/
+  background: transparent; /*Default value in (Light Theme / Root)*/
+}
+
+/* When dark-theme is enabled, change "Add a todo" input background*/
+[data-theme="dark"] .todo-input {
+  background: #37393b;
+}
+
+/*set input placeholder text color according to the theme*/
+.todo-input::placeholder {
+  color: var(--body_color);
+}
+
+/* Add Todo button inside form*/
+.todo-button {
+  padding: 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  text-transform: capitalize;
+  background: #febc6d; /*set button color (Gold)*/
+  color: var(
+    --light_color
+  ); /*Default text color of the "Add Todo" button (white)*/
+}
+
+/* Change "Add Todo" button text color when dark theme enabled*/
+[data-theme="dark"] .todo-button {
+  color: #424242; /* set color to dark */
+}
+/*#endregion Todo_Form*/
+
+/*#region Todo_List*/
+/*When a Todo is added, a new div is created with the class below*/
+.todo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px auto;
+  padding: 16px;
+  border-radius: 5px; /*Change border style*/
+  width: 90%;
+  /*Default colors in light theme*/
+  background: var(--light_color);
+  color: var(--body_color);
+  border: 2px solid #d8dfe9;
+}
+
+[data-theme="dark"] .todo-row {
+  background: #37393b; /**/
+  color: var(--light_color);
+}
+
+/*When you click in the Todo card text, it gets completed*/
+.complete {
+  text-decoration: line-through; /* Line-through text*/
+  opacity: 0.4; /* Change opacity to visually know that is task has been completed*/
+}
+
+/* Styling Rules when editing a task*/
+.todo-input.edit {
+  border: 2px solid #91c3fe; /* Border color between input*/
+}
+
+.todo-button.edit {
+  background-color: #91c3fe; /* Background color in Update Button*/
+  color: var(--light_color); /* default text color is white in light theme*/
+  padding: 16px 22px;
+}
+
+[data-theme="dark"] .todo-button.edit {
+  color: #424242; /*Change button text color to dark*/
+}
+
+/* Edit and delete buttons in the Todo card */
+.icons {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer; /*Change cursor when hover*/
+}
+
+.delete-icon,
+.edit-icon {
+  margin-right: 10px;
+  color: var(--body_color); /*Color changes depending on the theme*/
+}
+
+/*#endregion Todo_List*/
+
+/*#endregion Todo_Page*/
